@@ -117,5 +117,88 @@ class IGEGBuilder:
                     }
                 )
 
+    def add_feature_path(
+        self,
+        attribute_node,
+        operator,
+        feature_name,
+        target_name
+    ):
 
+        # Operator Node
+
+        operator_node = IGEGNode(
+            NodeType.OPERATOR,
+            operator
+        )
+
+        self.add_node(operator_node)
+
+
+
+        # Attribute -> Operator
+
+        self.connect(
+            attribute_node,
+            operator_node,
+            EdgeType.FEATURE,
+            weight=1.0,
+            metadata={
+                "operation": operator
+            }
+        )
+
+
+
+        # Feature Node
+
+        feature_node = IGEGNode(
+            NodeType.FEATURE,
+            feature_name
+        )
+
+        self.add_node(feature_node)
+
+
+
+        # Operator -> Feature
+
+        self.connect(
+            operator_node,
+            feature_node,
+            EdgeType.FEATURE,
+            weight=1.0,
+            metadata={
+                "generated_from": attribute_node.name
+            }
+        )
+
+
+
+        # Target Node
+
+        target_node = IGEGNode(
+            NodeType.TARGET,
+            target_name
+        )
+
+        self.add_node(target_node)
+
+
+
+        # Feature -> Target
+
+        self.connect(
+            feature_node,
+            target_node,
+            EdgeType.INFERENCE,
+            weight=0.8,
+            metadata={
+                "reason":
+                "predictive evidence"
+            }
+        )
+
+
+        return feature_node
         return self.graph
