@@ -1,7 +1,7 @@
 {
     "nodes": [
         {
-            "id": "df946926-3494-4af4-8467-4b239b0a968b",
+            "id": "62a946e3-691c-4313-b89a-d63220c32859",
             "type": "intent",
             "name": "Predict Customer Churn",
             "metadata": {
@@ -12,25 +12,25 @@
             }
         },
         {
-            "id": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
+            "id": "7952b03e-d1e2-4be6-9892-8a1759850ac5",
             "type": "concept",
             "name": "Customer",
             "metadata": {}
         },
         {
-            "id": "6145c618-2228-4b04-8978-0242de5c64d2",
+            "id": "13da5bd2-b1d1-41f1-b0a7-96b8cfa719bc",
             "type": "table",
             "name": "Customers",
             "metadata": {}
         },
         {
-            "id": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
+            "id": "6697475a-d4ad-4cb1-a094-015dcf020449",
             "type": "table",
             "name": "Transactions",
             "metadata": {}
         },
         {
-            "id": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
+            "id": "7b5a022d-1bd0-4474-871d-0a4130cfb38e",
             "type": "attribute",
             "name": "Transactions.amount",
             "metadata": {
@@ -41,13 +41,13 @@
             }
         },
         {
-            "id": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
+            "id": "2f20ca1e-916b-4165-90d5-4ee2c7adb193",
             "type": "operator",
             "name": "AVG",
             "metadata": {}
         },
         {
-            "id": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
+            "id": "362624ef-f671-49a0-adce-8fbe014dcf7f",
             "type": "feature",
             "name": "AveragePurchaseValue",
             "metadata": {
@@ -60,7 +60,7 @@
             }
         },
         {
-            "id": "5edc701d-e8de-4aba-bfec-b3c7ecbdbfbf",
+            "id": "c6633e0b-7cce-4988-83c9-0c1dc633e213",
             "type": "target",
             "name": "Churn",
             "metadata": {
@@ -71,9 +71,9 @@
     ],
     "edges": [
         {
-            "id": "bdd6cae1-a5d3-4614-b759-4fb58b613d3e",
-            "source": "df946926-3494-4af4-8467-4b239b0a968b",
-            "target": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
+            "id": "740554fc-6c7f-40f0-b7a7-135090929842",
+            "source": "62a946e3-691c-4313-b89a-d63220c32859",
+            "target": "7952b03e-d1e2-4be6-9892-8a1759850ac5",
             "type": "semantic",
             "weight": 0.9,
             "metadata": {
@@ -81,9 +81,9 @@
             }
         },
         {
-            "id": "22175b14-9e85-4044-bfef-a3b28d117284",
-            "source": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
-            "target": "6145c618-2228-4b04-8978-0242de5c64d2",
+            "id": "2cb64edf-64cf-47f7-bc50-341a638afc8e",
+            "source": "7952b03e-d1e2-4be6-9892-8a1759850ac5",
+            "target": "13da5bd2-b1d1-41f1-b0a7-96b8cfa719bc",
             "type": "mapping",
             "weight": 0.95,
             "metadata": {
@@ -91,9 +91,9 @@
             }
         },
         {
-            "id": "0887a0ca-ee97-4368-a344-02827b162937",
-            "source": "6145c618-2228-4b04-8978-0242de5c64d2",
-            "target": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
+            "id": "6337f47b-528e-4736-a173-c6ee336945da",
+            "source": "13da5bd2-b1d1-41f1-b0a7-96b8cfa719bc",
+            "target": "6697475a-d4ad-4cb1-a094-015dcf020449",
             "type": "relational",
             "weight": 1.0,
             "metadata": {
@@ -102,9 +102,9 @@
             }
         },
         {
-            "id": "f18d9f53-49d3-42a7-b237-e685ffe5bd96",
-            "source": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
-            "target": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
+            "id": "ba4e8b71-f5cc-449c-9898-68a9ada45caf",
+            "source": "6697475a-d4ad-4cb1-a094-015dcf020449",
+            "target": "7b5a022d-1bd0-4474-871d-0a4130cfb38e",
             "type": "mapping",
             "weight": 0.95,
             "metadata": {
@@ -112,9 +112,9 @@
             }
         },
         {
-            "id": "f991080f-e6b9-4dbd-8728-29e5da394cde",
-            "source": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
-            "target": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
+            "id": "fbefd38d-cce2-4e75-9cdc-2fd58b070627",
+            "source": "7b5a022d-1bd0-4474-871d-0a4130cfb38e",
+            "target": "2f20ca1e-916b-4165-90d5-4ee2c7adb193",
             "type": "feature",
             "weight": 1.0,
             "metadata": {
@@ -122,9 +122,9 @@
             }
         },
         {
-            "id": "003ccbc2-6771-4243-8a6a-82abe368ae81",
-            "source": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
-            "target": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
+            "id": "9f97d6bc-8c17-4884-8099-a7ad59068826",
+            "source": "2f20ca1e-916b-4165-90d5-4ee2c7adb193",
+            "target": "362624ef-f671-49a0-adce-8fbe014dcf7f",
             "type": "feature",
             "weight": 1.0,
             "metadata": {
@@ -132,9 +132,9 @@
             }
         },
         {
-            "id": "3f2c7f37-0ea5-4205-b63c-114da4c89470",
-            "source": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
-            "target": "5edc701d-e8de-4aba-bfec-b3c7ecbdbfbf",
+            "id": "d039c12e-31b0-4e04-8727-625224c20741",
+            "source": "362624ef-f671-49a0-adce-8fbe014dcf7f",
+            "target": "c6633e0b-7cce-4988-83c9-0c1dc633e213",
             "type": "inference",
             "weight": 0.85,
             "metadata": {
