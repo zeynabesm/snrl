@@ -7,58 +7,84 @@ builder = IGEGBuilder()
 
 
 
-intent = builder.add_intent(
-    {
-        "name":"Predict Customer Churn",
-        "task":"classification",
-        "target":"churn",
-        "entity":"customer"
-    }
-)
+intent = builder.add_intent({
+
+    "name":"Predict Customer Churn",
+
+    "task":"classification",
+
+    "target":"churn",
+
+    "entity":"customer"
+
+})
 
 
 
-customer = builder.add_concept(
+concept = builder.add_concept(
     "Customer"
 )
 
 
-
-customers_table = builder.add_table(
+table = builder.add_table(
     "Customers"
 )
 
 
-
-builder.connect(
-    intent,
-    customer,
-    EdgeType.SEMANTIC,
-    weight=0.9,
-    metadata={
-        "reason":"intent understanding"
-    }
+attribute = builder.add_attribute(
+    "customer_id"
 )
 
 
+builder.connect(
+
+    intent,
+
+    concept,
+
+    EdgeType.SEMANTIC,
+
+    0.9,
+
+    {
+        "reason":"intent understanding"
+    }
+
+)
+
 
 builder.connect(
-    customer,
-    customers_table,
+
+    concept,
+
+    table,
+
     EdgeType.MAPPING,
-    weight=0.95,
-    metadata={
+
+    0.95,
+
+    {
         "reason":"schema grounding"
     }
+
+)
+
+
+builder.connect(
+
+    table,
+
+    attribute,
+
+    EdgeType.RELATIONAL,
+
+    1.0
+
 )
 
 
 
 graph = builder.build()
-
-
-
-graph.print_graph()
 
 
 

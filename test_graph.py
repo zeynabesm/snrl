@@ -1,31 +1,22 @@
 from igeg.graph import IGEGGraph
-
 from igeg.node import IGEGNode, NodeType
-
 from igeg.edge import IGEGEdge, EdgeType
 
 
-
-# Create graph
 
 graph = IGEGGraph()
 
 
 
-# Create nodes
+# Nodes
 
 intent = IGEGNode(
     NodeType.INTENT,
-    "Predict Customer Churn",
-    metadata={
-        "task": "classification",
-        "target": "churn",
-        "entity": "customer"
-    }
+    "Predict Customer Churn"
 )
 
 
-concept = IGEGNode(
+customer = IGEGNode(
     NodeType.CONCEPT,
     "Customer"
 )
@@ -38,60 +29,70 @@ table = IGEGNode(
 
 
 
-# Add nodes
-
 graph.add_node(intent)
-
-graph.add_node(concept)
-
+graph.add_node(customer)
 graph.add_node(table)
 
 
 
-# Create edges
+# Edges
 
-semantic_edge = IGEGEdge(
+e1 = IGEGEdge(
+
     source=intent.id,
-    target=concept.id,
+
+    target=customer.id,
+
     edge_type=EdgeType.SEMANTIC,
-    weight=0.9,
-    metadata={
-        "reason": "intent concept relation"
-    }
+
+    weight=0.9
+
 )
 
 
+e2 = IGEGEdge(
 
-mapping_edge = IGEGEdge(
-    source=concept.id,
+    source=customer.id,
+
     target=table.id,
+
     edge_type=EdgeType.MAPPING,
-    weight=0.95,
-    metadata={
-        "reason": "schema grounding"
-    }
+
+    weight=0.95
+
 )
 
 
 
-# Add edges
-
-graph.add_edge(semantic_edge)
-
-graph.add_edge(mapping_edge)
+graph.add_edge(e1)
+graph.add_edge(e2)
 
 
 
-# Print graph path
+print("\nNeighbors of Intent:")
 
-print("\n=== IGEG Reasoning Path ===")
+for n in graph.get_neighbors(intent.id):
 
-graph.print_graph()
+    print(n)
 
 
 
-# Print JSON structure
+print("\nOutgoing edges:")
 
-print("\n=== IGEG JSON ===")
+for e in graph.get_outgoing_edges(customer.id):
+
+    print(e)
+
+
+
+print("\nIncoming edges of Customers:")
+
+for e in graph.get_incoming_edges(table.id):
+
+    print(e)
+
+
+
+print("\nJSON:")
 
 print(graph.to_dict())

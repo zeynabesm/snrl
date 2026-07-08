@@ -1,0 +1,145 @@
+{
+    "nodes": [
+        {
+            "id": "df946926-3494-4af4-8467-4b239b0a968b",
+            "type": "intent",
+            "name": "Predict Customer Churn",
+            "metadata": {
+                "name": "Predict Customer Churn",
+                "task": "classification",
+                "target": "churn",
+                "entity": "customer"
+            }
+        },
+        {
+            "id": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
+            "type": "concept",
+            "name": "Customer",
+            "metadata": {}
+        },
+        {
+            "id": "6145c618-2228-4b04-8978-0242de5c64d2",
+            "type": "table",
+            "name": "Customers",
+            "metadata": {}
+        },
+        {
+            "id": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
+            "type": "table",
+            "name": "Transactions",
+            "metadata": {}
+        },
+        {
+            "id": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
+            "type": "attribute",
+            "name": "Transactions.amount",
+            "metadata": {
+                "table": "Transactions",
+                "column": "amount",
+                "datatype": "float",
+                "semantic": "purchase amount"
+            }
+        },
+        {
+            "id": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
+            "type": "operator",
+            "name": "AVG",
+            "metadata": {}
+        },
+        {
+            "id": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
+            "type": "feature",
+            "name": "AveragePurchaseValue",
+            "metadata": {
+                "source_table": "Transactions",
+                "source_column": "amount",
+                "aggregation": "AVG",
+                "window": "30_days",
+                "business_meaning": "average customer spending",
+                "task": "classification"
+            }
+        },
+        {
+            "id": "5edc701d-e8de-4aba-bfec-b3c7ecbdbfbf",
+            "type": "target",
+            "name": "Churn",
+            "metadata": {
+                "task": "classification",
+                "type": "binary"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "bdd6cae1-a5d3-4614-b759-4fb58b613d3e",
+            "source": "df946926-3494-4af4-8467-4b239b0a968b",
+            "target": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
+            "type": "semantic",
+            "weight": 0.9,
+            "metadata": {
+                "reason": "intent understanding"
+            }
+        },
+        {
+            "id": "22175b14-9e85-4044-bfef-a3b28d117284",
+            "source": "b37735fb-b2bf-4e9c-ac3e-8ef4d206efd0",
+            "target": "6145c618-2228-4b04-8978-0242de5c64d2",
+            "type": "mapping",
+            "weight": 0.95,
+            "metadata": {
+                "reason": "schema grounding"
+            }
+        },
+        {
+            "id": "0887a0ca-ee97-4368-a344-02827b162937",
+            "source": "6145c618-2228-4b04-8978-0242de5c64d2",
+            "target": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
+            "type": "relational",
+            "weight": 1.0,
+            "metadata": {
+                "source_column": "customer_id",
+                "target_column": "customer_id"
+            }
+        },
+        {
+            "id": "f18d9f53-49d3-42a7-b237-e685ffe5bd96",
+            "source": "aefe0aff-b945-44c4-b28d-0b228cebdd4f",
+            "target": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
+            "type": "mapping",
+            "weight": 0.95,
+            "metadata": {
+                "reason": "attribute belongs to table"
+            }
+        },
+        {
+            "id": "f991080f-e6b9-4dbd-8728-29e5da394cde",
+            "source": "3f07fa1d-1c05-4923-a611-23c51f9c0904",
+            "target": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
+            "type": "feature",
+            "weight": 1.0,
+            "metadata": {
+                "operation": "AVG"
+            }
+        },
+        {
+            "id": "003ccbc2-6771-4243-8a6a-82abe368ae81",
+            "source": "e03c856d-5ce8-41fa-97ff-f5016a1885fe",
+            "target": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
+            "type": "feature",
+            "weight": 1.0,
+            "metadata": {
+                "generated_feature": "AveragePurchaseValue"
+            }
+        },
+        {
+            "id": "3f2c7f37-0ea5-4205-b63c-114da4c89470",
+            "source": "1ef50bf8-ee1b-4460-8edd-695f8e7dc258",
+            "target": "5edc701d-e8de-4aba-bfec-b3c7ecbdbfbf",
+            "type": "inference",
+            "weight": 0.85,
+            "metadata": {
+                "reason": "feature contributes to churn prediction"
+            }
+        }
+    ]
+}
